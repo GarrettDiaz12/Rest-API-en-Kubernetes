@@ -1,0 +1,30 @@
+apiVersion: v1 
+kind: Deployment
+metadata:
+  name: back
+  labels:
+    app: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+      tier: back
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: db
+        tier: back
+    spec:
+      containers:
+      - name: mysql-bd
+        image: noediaz22/mysql-api
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

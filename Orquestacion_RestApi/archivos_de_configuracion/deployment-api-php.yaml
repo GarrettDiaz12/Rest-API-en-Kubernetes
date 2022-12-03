@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: front
+  labels: 
+    app: api
+spec:
+  selector:
+    matchLabels:
+      app: api
+      tier: front
+  replicas: 7
+  template:
+    metadata:
+      labels:
+        app: api
+        tier: front
+    spec:
+      containers:
+      - name: app-php
+        image: noediaz22/api-rest-v2
